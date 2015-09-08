@@ -1,0 +1,13 @@
+{
+    "name": "gotakk/view-model-bundle",
+    "description": "Allow to use a view-model step. This step is located between the controller and the view is a structured array sent to the View.",
+    "require": {
+        "symfony/yaml": "^2.7"
+    },
+    "authors": [
+        {
+            "name": "Adam Tahri",
+            "email": "gotakk@gmail.com"
+        }
+    ]
+}

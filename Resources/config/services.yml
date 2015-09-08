@@ -1,0 +1,6 @@
+parameters:
+  gotakk.view_model.service.class: gotakk\ViewModelBundle\Services\ViewModelService
+
+services:
+  gotakk.view_model.service:
+    class: %gotakk.view_model.service.class%
