@@ -1,9 +1,8 @@
 {
     "name": "gotakk/view-model-bundle",
-    "description": "Allow to use a view-model step. This step is located between the controller and the view is a structured array sent to the View.",
-    "require": {
-        "symfony/yaml": "^2.7"
-    },
+    "description": "Filter and organize data sent to the View from the Controller",
+    "keywords": ["viewmodel", "view","model", "filter" "oganize"],
+    "homepage": "https://github.com/gotakk/ViewModelBundle",
     "authors": [
         {
             "name": "Adam Tahri",

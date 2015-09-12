@@ -10,7 +10,7 @@ class ViewModelAssembler
 {
     protected $skel;
 
-    public function validate(ViewModelNode $vm, $skel = null)
+    public function validateViewModelBySkel(ViewModelNode $vm, $skel = null)
     {
         if ($skel == null)
             $skel = $this->skel;
@@ -38,7 +38,7 @@ class ViewModelAssembler
         return true;
     }
 
-    public function reverseValidate(ViewModelNode $vm, $skel = null)
+    public function validateSkelByViewModel(ViewModelNode $vm, $skel = null)
     {
         if ($skel == null) {
             $skel = $this->skel;
@@ -46,9 +46,9 @@ class ViewModelAssembler
 
         foreach ($vm as $key => $value)
         {
-            if (!is_array($value)) {
-                if (!value_in_array($skel, $value))
-                    throw new \Exception("$value not exists");
+            if (!($value instanceof ViewModelNode)) {
+                if (!in_array($key, $skel))
+                    throw new \Exception("$key not exists");
             }
 
             elseif (empty($value)) {
@@ -59,9 +59,9 @@ class ViewModelAssembler
             }
 
             else {
-                if (!isset($skel[$key]))
+                if (!array_key_exists($key, $skel))
                     throw new \Exception("$key not exists");
-                $this->validate($skel[$key], $value);
+                $this->reverseValidate($value, $skel[$key]);
             }
         }
 
