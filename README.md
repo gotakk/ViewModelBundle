@@ -17,7 +17,7 @@ public function registerBundles()
 {
   return array(
     // ...
-    new gotakk\gotakkViewModelBundle(),
+    new gotakk\ViewModelBundle\gotakkViewModelBundle(),
     // ...
   );
 }
