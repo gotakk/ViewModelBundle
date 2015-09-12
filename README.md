@@ -2,7 +2,6 @@
 A Symfony2 bundle to filter and organize data sent to the View from the Controller
 
 # Installation
-
 ## Step 1: Add this bundle to your project in composer.json
 
 ```
