@@ -26,3 +26,8 @@ public function registerBundles()
   );
 }
 ```
+
+## Authors
+
+Thanks to
+* [Remiii](https://github.com/Remiii)
