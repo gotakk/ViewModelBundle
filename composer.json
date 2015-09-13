@@ -2,15 +2,21 @@
     "name": "gotakk/view-model-bundle",
     "license": "MIT",
     "description": "A Symfony2 bundle to filter and organize data sent to the View from the Controller",
-    "keywords": ["viewmodel", "view","model", "filter", "oganize"],
+    "keywords": ["viewmodel", "view", "model", "filter", "oganize", "symfony", "bundle", "view-model"],
     "homepage": "https://github.com/gotakk/ViewModelBundle",
-    "autoload": {
-	"psr-4": { "gotakk\\ViewModelBundle\\": "" }
-    },
     "authors": [
         {
             "name": "Adam Tahri",
             "email": "gotakk@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": ">=2.3"
+    },
+    "autoload": {
+        "psr-4": { "gotakk\\ViewModelBundle\\": "" }
+    },
+    "target-dir": "gotakk/ViewModelBundle"
 }
+
