@@ -7,7 +7,9 @@ A Symfony2 bundle to filter and organize data sent to the View from the Controll
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gotakk/ViewModelBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gotakk/ViewModelBundle/?branch=master)
 
 ## Installation
+
 ### Step 1: Add this bundle to your project in composer.json
+
 
 ```
 $ composer require gotakk/view-model-bundle
@@ -15,7 +17,7 @@ $ composer require gotakk/view-model-bundle
 
 ### Step 2: Enable the bundle to your app/AppKernel.php
 
-```
+```php
 // app/AppKernel.php
 public function registerBundles()
 {
@@ -27,7 +29,38 @@ public function registerBundles()
 }
 ```
 
+### Step 3: Use it
+
+Example of ViewModel structure in your project
+
+```
+src/Acme/FooBarBundle
+|
+...
+|
+`-- View
+    |-- Assembler
+    |   |-- Corporate
+    |   |   |-- ContactViewAssembler.php
+    |   |   `-- HomeViewAssembler.php
+    |   `-- Travel
+    |       |-- BelgiumViewAssembler.php
+    |       `-- FranceViewAssembler.php
+    `-- Model
+        |-- Corporate
+        |   |-- ContactViewModel.php
+        |   `-- HomeViewModel.php
+        `-- Travel
+            |-- BelgiumViewModel.php
+            `-- FranceViewModel.php
+```
+
+## License
+
+ViewModelBundle is licensed under the MIT license (see LICENSE.md file).
+
 ## Authors
 
 Thanks to
 * [Remiii](https://github.com/Remiii)
+
