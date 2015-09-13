@@ -101,13 +101,14 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
             'Sam',
         ));
 
-        $this->assertEquals($vm->getMovies()[0]->getProperties()->toArray(), array(
+        $m = $vm->getMovies();
+        $this->assertEquals($m[0]->getProperties()->toArray(), array(
             'language' => 'english',
             'budget' => '$93 million',
             'boxOffice' => '$871.5 million',
         ));
 
-        $this->assertEquals($vm->getMovies()[0]->getChapter(), null);
+        $this->assertEquals($m[0]->getChapter(), null);
 
         $vm->addMovie(array(
             'title' => "Incption",
@@ -116,7 +117,7 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
 
         $vm['movies'][1]['title'] = 'Inception';
 
-        $this->assertEquals($vm->getMovies()[1]->toArray(), array(
+        $this->assertEquals($m[1]->toArray(), array(
             'title' => "Inception",
             'resume' => "Dominick \"Dom\" Cobb (Leonardo DiCaprio) and Arthur (Joseph Gordon-Levitt) are \"extractors\", people who perform corporate espionage using an experimental military technology to infiltrate the subconscious of their targets and extract information while experiencing shared dreaming. Their latest target is Japanese businessman Saito (Ken Watanabe). The extraction from Saito fails when sabotaged by a memory of Cobb's deceased wife Mal (Marion Cotillard). Saito reveals that he was actually auditioning the team to perform the difficult act of \"inception\": planting an idea in a person's subconscious.",
         ));
