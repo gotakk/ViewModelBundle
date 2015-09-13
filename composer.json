@@ -1,5 +1,6 @@
 {
     "name": "gotakk/view-model-bundle",
+    "license": "MIT",
     "description": "A Symfony2 bundle to filter and organize data sent to the View from the Controller",
     "keywords": ["viewmodel", "view","model", "filter", "oganize"],
     "homepage": "https://github.com/gotakk/ViewModelBundle",
