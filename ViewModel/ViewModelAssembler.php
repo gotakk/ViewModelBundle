@@ -46,7 +46,7 @@ class ViewModelAssembler
 
         foreach ($vm as $key => $value)
         {
-            if (!($value instanceof ViewModelNode)) {
+            if (!($value instanceof ViewModelNode) && !empty($value)) {
                 if (!in_array($key, $skel))
                     throw new \Exception("$key not exists");
             }

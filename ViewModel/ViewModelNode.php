@@ -60,7 +60,7 @@ class ViewModelNode implements \ArrayAccess
             preg_match('/[A-Z][a-zA-Z]*/', $name, $matches);
             $target = lcfirst($matches[0]);
         } catch (\Exception $e) {
-            echo "Error while parsing method name ($name)" . PHP_EOL;
+            throw new \BadMethodCallException("Error while parsing method name '$name()'");
         }
 
         switch ($action)
@@ -94,7 +94,7 @@ class ViewModelNode implements \ArrayAccess
                 break;
 
             default:
-                echo $name . ': Undefined function' . PHP_EOL;
+                throw new \BadMethodCallException("$name(): Undefined method");
                 break;
         }
         return null;

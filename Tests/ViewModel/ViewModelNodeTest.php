@@ -120,8 +120,23 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
             'title' => "Inception",
             'resume' => "Dominick \"Dom\" Cobb (Leonardo DiCaprio) and Arthur (Joseph Gordon-Levitt) are \"extractors\", people who perform corporate espionage using an experimental military technology to infiltrate the subconscious of their targets and extract information while experiencing shared dreaming. Their latest target is Japanese businessman Saito (Ken Watanabe). The extraction from Saito fails when sabotaged by a memory of Cobb's deceased wife Mal (Marion Cotillard). Saito reveals that he was actually auditioning the team to perform the difficult act of \"inception\": planting an idea in a person's subconscious.",
         ));
+    }
 
-        $this->assertNull($vm->removeMovie(0));
-        $this->assertNull($vm->fail());
+    /**
+     * @expectedException        BadMethodCallException
+     * @expectedExceptionMessage Error while parsing method name 'fail()'
+     */
+    public function testParsingMethodException()
+    {
+        (new ViewModelNode())->fail();
+    }
+
+    /**
+     * @expectedException        BadMethodCallException
+     * @expectedExceptionMessage removeMovie(): Undefined method
+     */
+    public function testUndefinedMethod()
+    {
+        (new ViewModelNode())->removeMovie();
     }
 }

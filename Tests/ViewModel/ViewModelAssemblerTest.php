@@ -58,9 +58,6 @@ class ViewModelAssemblerTest extends \PHPUnit_Framework_TestCase
 
         $vm = new ViewModelNode(array(
             'date' => '1970-01-01',
-            'authors' => array(
-                'gotakk',
-            ),
             'contactInfos' => array(
                 'tel' => '+1-202-555-0123',
                 'fax' => '+1-202-555-0181',
@@ -76,7 +73,6 @@ class ViewModelAssemblerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($assembler->validateSkelByViewModel($vm, array(
             'date',
-            'authors' => array(),
             'contactInfos' => array(
                 'tel',
                 'fax',
