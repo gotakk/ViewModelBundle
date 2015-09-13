@@ -4,9 +4,15 @@
     "description": "A Symfony2 bundle to filter and organize data sent to the View from the Controller",
     "keywords": ["viewmodel", "view","model", "filter", "oganize"],
     "homepage": "https://github.com/gotakk/ViewModelBundle",
+
     "autoload": {
 	"psr-4": { "gotakk\\ViewModelBundle\\": "" }
     },
+
+    "require-dev": {
+	"satooshi/php-coveralls": "dev-master"
+    },
+
     "authors": [
         {
             "name": "Adam Tahri",
