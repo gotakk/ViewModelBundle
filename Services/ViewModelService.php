@@ -3,7 +3,6 @@
 namespace gotakk\ViewModelBundle\Services;
 
 use gotakk\ViewModelBundle\ViewModel\ViewModelNode;
-use gotakk\ViewModelBundle\Validator\ViewModelValidator;
 
 class ViewModelService
 {

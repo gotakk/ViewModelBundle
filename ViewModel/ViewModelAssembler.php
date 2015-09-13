@@ -3,8 +3,6 @@
 namespace gotakk\ViewModelBundle\ViewModel;
 
 use gotakk\ViewModelBundle\ViewModel\ViewModelNode;
-use gotakk\ViewModelBundle\Service\ViewModelValidator;
-use Symfony\Component\Yaml\Parser;
 
 class ViewModelAssembler
 {
@@ -12,7 +10,7 @@ class ViewModelAssembler
 
     public function validateViewModelBySkel(ViewModelNode $vm, $skel = null)
     {
-        if ($skel == null) {
+        if ($skel === null) {
             $skel = $this->skel;
         }
 
@@ -38,7 +36,7 @@ class ViewModelAssembler
 
     public function validateSkelByViewModel(ViewModelNode $vm, $skel = null)
     {
-        if ($skel == null) {
+        if ($skel === null) {
             $skel = $this->skel;
         }
 
