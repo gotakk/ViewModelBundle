@@ -129,7 +129,8 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testParsingMethodException()
     {
-        (new ViewModelNode())->fail();
+        $vm = new ViewModelNode();
+        $vm->fail();
     }
 
     /**
@@ -138,6 +139,7 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
      */
     public function testUndefinedMethod()
     {
-        (new ViewModelNode())->removeMovie();
+        $vm = new ViewModelNode();
+        $vm->removeMovie();
     }
 }
