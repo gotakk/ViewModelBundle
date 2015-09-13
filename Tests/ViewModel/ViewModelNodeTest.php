@@ -86,5 +86,60 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
                 'boxOffice' => '$871.5 million',
             ),
         ));
+
+        $this->assertEquals($vm['movies'][0]['characters'][0], 'Frodon');
+
+        $vm['movies'][0]['characters'][] = 'Sam';
+        $this->assertTrue(isset($vm['movies'][0]['characters'][1]));
+
+        unset($vm['movies'][0]['characters'][1]);
+        $this->assertEquals(count($vm['movies'][0]['characters']), 1);
+
+        $vm['movies'][0]['characters']->add('Sam');
+        $this->assertEquals($vm['movies'][0]['characters']->toArray(), array(
+            'Frodon',
+            'Sam',
+        ));
+
+        $m = $vm->getMovies();
+        $this->assertEquals($m[0]->getProperties()->toArray(), array(
+            'language' => 'english',
+            'budget' => '$93 million',
+            'boxOffice' => '$871.5 million',
+        ));
+
+        $this->assertEquals($m[0]->getChapter(), null);
+
+        $vm->addMovie(array(
+            'title' => "Incption",
+            'resume' => "Dominick \"Dom\" Cobb (Leonardo DiCaprio) and Arthur (Joseph Gordon-Levitt) are \"extractors\", people who perform corporate espionage using an experimental military technology to infiltrate the subconscious of their targets and extract information while experiencing shared dreaming. Their latest target is Japanese businessman Saito (Ken Watanabe). The extraction from Saito fails when sabotaged by a memory of Cobb's deceased wife Mal (Marion Cotillard). Saito reveals that he was actually auditioning the team to perform the difficult act of \"inception\": planting an idea in a person's subconscious.",
+        ));
+
+        $vm['movies'][1]['title'] = 'Inception';
+
+        $this->assertEquals($m[1]->toArray(), array(
+            'title' => "Inception",
+            'resume' => "Dominick \"Dom\" Cobb (Leonardo DiCaprio) and Arthur (Joseph Gordon-Levitt) are \"extractors\", people who perform corporate espionage using an experimental military technology to infiltrate the subconscious of their targets and extract information while experiencing shared dreaming. Their latest target is Japanese businessman Saito (Ken Watanabe). The extraction from Saito fails when sabotaged by a memory of Cobb's deceased wife Mal (Marion Cotillard). Saito reveals that he was actually auditioning the team to perform the difficult act of \"inception\": planting an idea in a person's subconscious.",
+        ));
+    }
+
+    /**
+     * @expectedException        BadMethodCallException
+     * @expectedExceptionMessage Error while parsing method name 'fail()'
+     */
+    public function testParsingMethodException()
+    {
+        $vm = new ViewModelNode();
+        $vm->fail();
+    }
+
+    /**
+     * @expectedException        BadMethodCallException
+     * @expectedExceptionMessage removeMovie(): Undefined method
+     */
+    public function testUndefinedMethod()
+    {
+        $vm = new ViewModelNode();
+        $vm->removeMovie();
     }
 }
