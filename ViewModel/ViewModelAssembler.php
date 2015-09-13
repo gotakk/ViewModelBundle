@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Parser;
 
 class ViewModelAssembler
 {
-    protected $skel;
+    protected $skel = array();
 
     public function validateViewModelBySkel(ViewModelNode $vm, $skel = null)
     {
@@ -32,7 +32,7 @@ class ViewModelAssembler
             else {
                 if (!isset($vm[$key]))
                     throw new \Exception("$key not exists");
-                $this->validate($vm[$key], $value);
+                $this->validateViewModelBySkel($vm[$key], $value);
             }
         }
         return true;
@@ -61,7 +61,7 @@ class ViewModelAssembler
             else {
                 if (!array_key_exists($key, $skel))
                     throw new \Exception("$key not exists");
-                $this->reverseValidate($value, $skel[$key]);
+                $this->validateSkelByViewModel($value, $skel[$key]);
             }
         }
 
