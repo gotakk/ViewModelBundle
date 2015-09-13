@@ -6,16 +6,19 @@ class ViewModelNode implements \ArrayAccess
 {
     public function __construct($skel = array())
     {
-        foreach ($skel as $key => $value)
+        foreach ($skel as $key => $value) {
             $this->$key = (is_array($value)) ? new ViewModelNode($value) : $value;
+        }
     }
 
     private function getNewIntIndex()
     {
         $vars = array();
-        foreach (get_object_vars($this) as $k => $v)
-            if (is_int($k))
+        foreach (get_object_vars($this) as $k => $v) {
+            if (is_int($k)) {
                 $vars[$k] = $v;
+            }
+        }
         ksort($vars);
         end($vars);
         return (count($vars)) ? intval(key($vars)) + 1 : 0;
@@ -25,10 +28,11 @@ class ViewModelNode implements \ArrayAccess
     {
         $index = $this->getNewIntIndex();
 
-        if (is_null($offset))
+        if (is_null($offset)) {
             $this->$index = $value;
-        else
+        } else {
             $this->$offset = $value;
+        }
     }
 
     public function offsetExists($offset)
@@ -48,8 +52,7 @@ class ViewModelNode implements \ArrayAccess
 
     public function __call($name, $args)
     {
-        if ($name === 'add')
-        {
+        if ($name === 'add') {
             $index = $this->getNewIntIndex();
             return $this->$index = (is_array($args[0])) ? $this->$index = new ViewModelNode($args[0]) : $this->$index = $args[0];
         }
@@ -63,33 +66,28 @@ class ViewModelNode implements \ArrayAccess
             throw new \BadMethodCallException("Error while parsing method name '$name()'");
         }
 
-        switch ($action)
-        {
+        switch ($action) {
             case 'get':
-                if (isset($this->$target))
+                if (isset($this->$target)) {
                     return $this->$target;
+                }
                 break;
 
             case 'add':
                 $arg = $args[0];
                 $entityName = $target . 's';
 
-                if (isset($this->$entityName) && $this->$entityName instanceof ViewModelNode)
-                {
+                if (isset($this->$entityName) && $this->$entityName instanceof ViewModelNode) {
                     return $this->{$entityName}->add($arg);
-                }
-                else
-                {
+                } else {
                     $this->$entityName = new ViewModelNode($args);
                     return $this->{$entityName}[0];
                 }
-
                 break;
 
             case 'set':
                 $arg = $args[0];
                 $entityName = $target . 's';
-
                 $this->$target = is_array($arg) ? new ViewModelNode($arg) : $arg;
                 break;
 
@@ -104,9 +102,11 @@ class ViewModelNode implements \ArrayAccess
     {
         $arr = array();
 
-        foreach (get_object_vars($this) as $key => $value)
+        foreach (get_object_vars($this) as $key => $value) {
             $arr[$key] = ($value instanceof ViewModelNode) ? $value->toArray() : $value;
+        }
 
         return $arr;
     }
 }
+
