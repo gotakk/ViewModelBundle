@@ -54,10 +54,14 @@ class ViewModelNode implements \ArrayAccess
             return $this->$index = (is_array($args[0])) ? $this->$index = new ViewModelNode($args[0]) : $this->$index = $args[0];
         }
 
-        preg_match('/^[a-z]*/', $name, $matches);
-        $action = $matches[0];
-        preg_match('/[A-Z][a-zA-Z]*/', $name, $matches);
-        $target = lcfirst($matches[0]);
+        try {
+            preg_match('/^[a-z]*/', $name, $matches);
+            $action = $matches[0];
+            preg_match('/[A-Z][a-zA-Z]*/', $name, $matches);
+            $target = lcfirst($matches[0]);
+        } catch (\Exception $e) {
+            throw new \BadMethodCallException("Error while parsing method name '$name()'");
+        }
 
         switch ($action)
         {
@@ -90,9 +94,10 @@ class ViewModelNode implements \ArrayAccess
                 break;
 
             default:
-                echo $name . ': Undefined function' . PHP_EOL;
+                throw new \BadMethodCallException("$name(): Undefined method");
                 break;
         }
+        return null;
     }
 
     public function toArray()
