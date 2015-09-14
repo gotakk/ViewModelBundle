@@ -38,22 +38,66 @@ src/Acme/FooBarBundle
 |
 ...
 |
-`-- View
-    |-- Assembler
-    |   |-- Corporate
-    |   |   |-- ContactViewAssembler.php
-    |   |   `-- HomeViewAssembler.php
-    |   `-- Travel
-    |       |-- BelgiumViewAssembler.php
-    |       `-- FranceViewAssembler.php
-    `-- Model
-        |-- Corporate
-        |   |-- ContactViewModel.php
-        |   `-- HomeViewModel.php
-        `-- Travel
-            |-- BelgiumViewModel.php
-            `-- FranceViewModel.php
+`-- ViewModel
+    |-- Corporate
+    |   |-- ContactViewModelAssembler.php
+    |   `-- HomeViewModelAssembler.php
+    `-- Travel
+        |-- BelgiumViewModelAssembler.php
+        `-- FranceViewModelAssembler.php
 ```
+
+Declarer assemblers as a service.
+
+```yml
+# src/Acme/FooBarBundle/Resouces/config/services.yml
+services:
+    # ...
+    # Service ViewAssembler
+    acme_foobar.contact_view_model_assembler:
+        class: Acme\FooBarBundle\ViewModel\Corporate\ContactViewModelAssembler
+        arguments: [@gotakk.view_model.service]
+    # ...
+...
+
+```
+
+Use service in your controler
+
+```php
+// src/Acme/FooBarBundle/Controller/CorporateController.php
+
+// ...
+
+$vm = $this->get('acme_foobar.contact_view_model_assembler')->generateViewModel($model1, $model2, $model3);
+
+// ...
+
+```
+
+Assemble it
+
+```php
+<?php
+
+// src/Acme/FooBarBundle/ViewModel/Corporate/ContactViewModelAssembler.php
+
+namespace acme\FooBarBundle\ViewModel\Corporate;
+
+use gotakk\ViewModelBundle\ViewModel\ViewModelAssembler;
+use gotakk\ViewModelBundle\ViewModel\ViewModelNode;
+
+use acme\FooBarBundle\Entity\Model1;
+use acme\FooBarBundle\Entity\Model2;
+use acme\FooBarBundle\Entity\Model3;
+
+class ContactViewModelAssembler extends ViewModelAssembler
+{
+    // TODO
+}
+```
+
+That's it!
 
 ## License
 
