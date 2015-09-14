@@ -4,6 +4,18 @@ namespace gotakk\ViewModelBundle\ViewModel;
 
 class ViewModelNode implements \ArrayAccess
 {
+    static private $plurals =array();
+
+    public static function addPlural($singular, $plural)
+    {
+        self::$plurals[$singular] = $plural;
+    }
+
+    public static function getPlurals()
+    {
+        return self::$plurals;
+    }
+
     public function __construct($skel = array())
     {
         foreach ($skel as $key => $value) {
@@ -75,7 +87,7 @@ class ViewModelNode implements \ArrayAccess
 
             case 'add':
                 $arg = $args[0];
-                $entityName = $target . 's';
+                $entityName = isset(self::$plurals[$target]) ? self::$plurals[$target] : $target . 's';
 
                 if (isset($this->$entityName) && $this->$entityName instanceof ViewModelNode) {
                     return $this->{$entityName}->add($arg);
@@ -87,7 +99,6 @@ class ViewModelNode implements \ArrayAccess
 
             case 'set':
                 $arg = $args[0];
-                $entityName = $target . 's';
                 $this->$target = is_array($arg) ? new ViewModelNode($arg) : $arg;
                 break;
 

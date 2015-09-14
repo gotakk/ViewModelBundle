@@ -142,4 +142,24 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
         $vm = new ViewModelNode();
         $vm->removeMovie();
     }
+
+    public function testIrregularPlural()
+    {
+        ViewModelNode::addPlural('mouse', 'mice');
+        $this->assertEquals(ViewModelNode::getPlurals(), array(
+            'mouse' => 'mice',
+        ));
+
+        $vm = new ViewModelNode();
+
+        $vm->addMouse('Mickey');
+        $vm->addMouse('Jerry');
+
+        $this->assertEquals($vm->toArray(), array(
+            'mice' => array(
+                'Mickey',
+                'Jerry',
+            ),
+        ));
+    }
 }

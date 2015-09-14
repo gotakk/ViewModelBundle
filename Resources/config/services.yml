@@ -4,3 +4,4 @@ parameters:
 services:
   gotakk.view_model.service:
     class: %gotakk.view_model.service.class%
+    arguments: [%gotakk.view_model.irregular_plurals.parameter%]

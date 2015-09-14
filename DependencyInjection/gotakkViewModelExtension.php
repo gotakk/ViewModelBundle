@@ -24,5 +24,9 @@ class gotakkViewModelExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        if (isset($config['plurals']) && (!empty($config['plurals']))) {
+            $container->setParameter('gotakk.view_model.irregular_plurals.parameter', $config['plurals']);
+        }
     }
 }
