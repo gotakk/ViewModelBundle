@@ -5,6 +5,9 @@ A Symfony2 bundle to filter and organize data sent to the View from the Controll
 [![Build Status](https://travis-ci.org/gotakk/ViewModelBundle.svg?branch=master)](https://travis-ci.org/gotakk/ViewModelBundle)
 [![Coverage Status](https://coveralls.io/repos/gotakk/ViewModelBundle/badge.svg?branch=master&service=github)](https://coveralls.io/github/gotakk/ViewModelBundle?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/gotakk/ViewModelBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/gotakk/ViewModelBundle/?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/78a4326b-43d1-4c2e-917c-dc1e013fca95/big.png)](https://insight.sensiolabs.com/projects/78a4326b-43d1-4c2e-917c-dc1e013fca95)
+[![Total Downloads](https://poser.pugx.org/phpunit/phpunit/downloads)](https://packagist.org/packages/phpunit/phpunit)
+[![License](https://poser.pugx.org/phpunit/phpunit/license)](https://packagist.org/packages/phpunit/phpunit)
 
 ## Installation
 
