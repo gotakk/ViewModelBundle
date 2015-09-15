@@ -49,6 +49,81 @@ class ViewModelAssemblerTest extends \PHPUnit_Framework_TestCase
         )));
     }
 
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage date not exists
+     */
+    public function testValidateViewModelBySkelExceptionOne()
+    {
+        $assembler = new ViewModelAssembler();
+        $assembler->validateViewModelBySkel(new ViewModelNode(array(
+            'authors' => array(
+                'gotakk',
+                'nickname' => 'gotakk',
+            ),
+        )), array(
+            'date',
+            'authors' => array(),
+        ));
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage authors not exists
+     */
+    public function testValidateViewModelBySkelExceptionTwo()
+    {
+        $assembler = new ViewModelAssembler();
+        $assembler->validateViewModelBySkel(new ViewModelNode(array(
+            'date' => '2015-09-15',
+        )), array(
+            'date',
+            'authors' => array(),
+        ));
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage contactInfos not exists
+     */
+    public function testValidateViewModelBySkelExceptionThree()
+    {
+        $assembler = new ViewModelAssembler();
+        $assembler->validateViewModelBySkel(new ViewModelNode(array(
+            'date' => '2015-09-15',
+            'authors' => array(
+                'gotakk',
+            ),
+        )), array(
+            'date',
+            'authors' => array(),
+            'contactInfos' => array(
+                'tel',
+                'fax',
+                'mail',
+            ),
+        ));
+    }
+
+    /**
+     * @expectedException        InvalidArgumentException
+     * @expectedExceptionMessage authors is not sequential array. Contains not numeric key (nickname)
+     */
+    public function testValidateViewModelBySkelExceptionSequentialArray()
+    {
+        $assembler = new ViewModelAssembler();
+        $assembler->validateViewModelBySkel(new ViewModelNode(array(
+            'date' => '2015-09-01',
+            'authors' => array(
+                'gotakk',
+                'nickname' => 'gotakk',
+            ),
+        )), array(
+            'date',
+            'authors' => array(),
+        ));
+    }
+
     public function testValidateSkelByViewModel()
     {
         $vm = new ViewModelNode();
