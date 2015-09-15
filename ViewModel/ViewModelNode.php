@@ -62,13 +62,14 @@ class ViewModelNode implements \ArrayAccess
         return isset($this->$offset) ? $this->$offset : null;
     }
 
+    public function add($data)
+    {
+        $index = $this->getNewIntIndex();
+        return $this->$index = (is_array($data)) ? $this->$index = new ViewModelNode($data) : $this->$index = $data;
+    }
+
     public function __call($name, $args)
     {
-        if ($name === 'add') {
-            $index = $this->getNewIntIndex();
-            return $this->$index = (is_array($args[0])) ? $this->$index = new ViewModelNode($args[0]) : $this->$index = $args[0];
-        }
-
         try {
             preg_match('/^[a-z]*/', $name, $matches);
             $action = $matches[0];
@@ -120,4 +121,3 @@ class ViewModelNode implements \ArrayAccess
         return $arr;
     }
 }
-
