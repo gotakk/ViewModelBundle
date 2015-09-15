@@ -1,0 +1,6 @@
+gotakk_view_model:
+  plurals:
+    city: cities
+    mouse: mice
+    dependency: dependencies
+    family: families
