@@ -5,3 +5,8 @@ services:
   gotakk.view_model.service:
     class: %gotakk.view_model.service.class%
     arguments: [%gotakk.view_model.irregular_plurals.parameter%]
+
+  gotakk.view_model.view_model_assembler:
+    abstract: true
+    calls:
+      - [setViewModelService, [@gotakk.view_model.service]]

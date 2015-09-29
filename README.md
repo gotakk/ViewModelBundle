@@ -13,7 +13,6 @@ A Symfony2 bundle to filter and organize data sent to the View from the Controll
 
 ### Step 1: Add this bundle to your project in composer.json
 
-
 ```
 $ composer require gotakk/view-model-bundle
 ```
@@ -22,6 +21,7 @@ $ composer require gotakk/view-model-bundle
 
 ```php
 // app/AppKernel.php
+
 public function registerBundles()
 {
   return array(
@@ -32,12 +32,30 @@ public function registerBundles()
 }
 ```
 
-### Step 3: Use it
+### Step 3: Import ViewModelBundle services
+
+```
+# app/config/services.yml
+
+imports:
+  - { resource: "@gotakkViewModelBundle/Resources/config/services.yml" }
+```
+
+### Step 4: Create your ViewModel folder structure
+
+* Create a ViewModel folder in your bundle root
+* Inside the ViewModel folder create subfolders to organize your files. The convention is to create a subfolder per each controller file.
+* In these subfolders, create one ViewModelAssembler file per action.
 
 Example of ViewModel structure in your project
 
 ```
 src/Acme/FooBarBundle
+|
+|
+|-- Controller
+|   |-- CorporateController.php               # <- contactAction(), homeAction()
+|   `-- TravelController.php                  # <- belgiumAction(), franceAction()
 |
 ...
 |
@@ -50,54 +68,83 @@ src/Acme/FooBarBundle
         `-- FranceViewModelAssembler.php
 ```
 
-Declarer assemblers as a service.
+### Step 5: Create your Assembler!
+
+```php
+<?php
+// src/Acme/FooBarBundle/ViewModel/Corporate/ContactViewModelAssembler.php
+
+namespace Acme\FooBarBundle\ViewModel\Corporate;
+
+use gotakk\ViewModelBundle\ViewModel\ViewModelAssembler;
+
+use Acme\FooBarBundle\Entity\Model1;
+use Acme\FooBarBundle\Entity\Model2;
+use Acme\FooBarBundle\Entity\Model3;
+
+class ContactViewModelAssembler extends ViewModelAssembler
+{
+  public function __construct()
+  {
+    $this->skel = array(
+      'pageTitle',
+      'mails' => array(),
+    );
+  }
+
+  public function generateViewModel($model1, $model2, $model3)
+  {
+    $vm = $this->vmService->createViewModel();
+
+    $vm->setPageTitle('Contact Us');
+    $vm->addMail('abc@gmail.com');
+    $vm->addMail('def@gmail.com');
+
+    return $vm->toArray();
+  }
+}
+```
+
+### Step 6: Declare your assembler as a service.
 
 ```yml
 # src/Acme/FooBarBundle/Resouces/config/services.yml
+
 services:
-    # ...
-    # Service ViewAssembler
     acme_foobar.contact_view_model_assembler:
         class: Acme\FooBarBundle\ViewModel\Corporate\ContactViewModelAssembler
-        arguments: [@gotakk.view_model.service]
-    # ...
-...
-
+	parent: gotakk.view_model.view_model_assembler
 ```
 
-Use service in your controler
+### Step 7: Use your assembler in your controler
 
 ```php
 // src/Acme/FooBarBundle/Controller/CorporateController.php
 
-// ...
+namespace Acme\FooBarBundle\Controller;
 
-$vm = $this->get('acme_foobar.contact_view_model_assembler')->generateViewModel($model1, $model2, $model3);
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-// ...
-
-```
-
-Assemble it
-
-```php
-<?php
-
-// src/Acme/FooBarBundle/ViewModel/Corporate/ContactViewModelAssembler.php
-
-namespace acme\FooBarBundle\ViewModel\Corporate;
-
-use gotakk\ViewModelBundle\ViewModel\ViewModelAssembler;
-use gotakk\ViewModelBundle\ViewModel\ViewModelNode;
-
-use acme\FooBarBundle\Entity\Model1;
-use acme\FooBarBundle\Entity\Model2;
-use acme\FooBarBundle\Entity\Model3;
-
-class ContactViewModelAssembler extends ViewModelAssembler
+class MainController extends Controller
 {
-    // TODO
-}
+    /**
+     * @Template
+     */
+    public function landingAction(Request $request)
+    {
+        $model1 = $this->get('doctrine')->getManager()->getRepository('AcmeFooBarBundleBundle:Model1')->findAll();
+        $model2 = $this->get('doctrine')->getManager()->getRepository('AcmeFooBarBundleBundle:Model2')->findAll();
+        $model3 = $this->get('doctrine')->getManager()->getRepository('AcmeFooBarBundleBundle:Model3')->findAll();
+
+        $vm = $this->get('acme_foobar.contact_view_model_assembler')->generateViewModel($model1, $model2, $model3);
+
+        return array(
+            'vm' => $vm,
+        );
+    }
 ```
 
 That's it!
@@ -110,4 +157,3 @@ ViewModelBundle is licensed under the MIT license (see LICENSE.md file).
 
 Thanks to
 * [Remiii](https://github.com/Remiii)
-
