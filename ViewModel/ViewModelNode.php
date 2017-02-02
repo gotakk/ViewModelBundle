@@ -27,7 +27,7 @@ class ViewModelNode implements \ArrayAccess
     {
         $vars = array();
         foreach (get_object_vars($this) as $k => $v) {
-            if (is_int($k)) {
+            if (is_numeric($k)) {
                 $vars[$k] = $v;
             }
         }

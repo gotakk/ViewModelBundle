@@ -91,6 +91,7 @@ class ViewModelNodeTest extends \PHPUnit_Framework_TestCase
 
         $vm['movies'][0]['characters'][] = 'Sam';
         $this->assertTrue(isset($vm['movies'][0]['characters'][1]));
+        $this->assertEquals($vm->getMovies()[0]->getCharacters()[1], 'Sam');
 
         unset($vm['movies'][0]['characters'][1]);
         $this->assertEquals(count($vm['movies'][0]['characters']), 1);
