@@ -32,16 +32,7 @@ public function registerBundles()
 }
 ```
 
-### Step 3: Import ViewModelBundle services
-
-```
-# app/config/services.yml
-
-imports:
-  - { resource: "@gotakkViewModelBundle/Resources/config/services.yml" }
-```
-
-### Step 4: Create your ViewModel folder structure
+### Step 3: Create your ViewModel folder structure
 
 * Create a ViewModel folder in your bundle root
 * Inside the ViewModel folder create subfolders to organize your files. The convention is to create a subfolder per each controller file.
@@ -68,7 +59,7 @@ src/Acme/FooBarBundle
         `-- FranceViewModelAssembler.php
 ```
 
-### Step 5: Create your Assembler!
+### Step 4: Create your Assembler!
 
 ```php
 <?php
@@ -105,7 +96,7 @@ class ContactViewModelAssembler extends ViewModelAssembler
 }
 ```
 
-### Step 6: Declare your assembler as a service.
+### Step 5: Declare your assembler as a service.
 
 ```yml
 # src/Acme/FooBarBundle/Resouces/config/services.yml
@@ -116,7 +107,7 @@ services:
 	parent: gotakk.view_model.view_model_assembler
 ```
 
-### Step 7: Use your assembler in your controler
+### Step 6: Use your assembler in your controler
 
 ```php
 // src/Acme/FooBarBundle/Controller/CorporateController.php
